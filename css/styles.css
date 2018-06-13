@@ -54,9 +54,11 @@ nav {
   height: 80px;
   background-color: #252831;
   text-align:center;
+  display:flex;
 }
 nav h1 {
   margin: auto;
+  max-width: 90%;
 }
 nav h1 a {
   color: #fff;
@@ -126,7 +128,7 @@ nav h1 a {
   letter-spacing: 0;
   margin: 10px;
   padding: 0 10px;
-  width: 200px;
+  width: 30%;
 }
 
 /* ====================== Restaurant Listing ====================== */
@@ -138,6 +140,7 @@ nav h1 a {
   margin: 0;
   padding: 0;
   text-align: center;
+  width:90%;
 }
 #restaurants-list li {
   background-color: #fff;
@@ -154,7 +157,7 @@ nav h1 a {
   display: block;
   margin: 0;
   max-width: 100%;
-  min-height: 248px;
+  max-height: 250px;
   min-width: 100%;
 }
 #restaurants-list li h1 {
@@ -220,7 +223,7 @@ nav h1 a {
   line-height: 1.1;
 }
 #restaurant-img {
-	width: 90%;
+	max-width: 100%;
 }
 #restaurant-address {
   font-size: 12pt;
@@ -241,8 +244,6 @@ nav h1 a {
 #restaurant-container, #reviews-container {
   border-bottom: 1px solid #d9d9d9;
   border-top: 1px solid #fff;
-  padding: 140px 40px 30px;
-  width: 50%;
 }
 #reviews-container {
   padding: 30px 40px 80px;
@@ -267,11 +268,27 @@ nav h1 a {
   overflow: hidden;
   padding: 0 20px 20px;
   position: relative;
-  width: 85%;
+  width: 80%;
 }
 #reviews-list li p {
   margin: 0 0 10px;
+  width: 100%;
 }
 #restaurant-hours td {
   color: #666;
+}
+
+
+* ====================== Media Query for Small Devices - Phones ====================== */
+@media only screen and (min-width: 300px) and (max-width: 500px){
+   nav h1 {
+    color: #f44242;
+   }
+}
+
+* ====================== Media Query for Medium Devices - Tablets====================== */
+@media only screen and (min-width: 501px) and (max-width: 1100px){
+nav h1 {
+    color: #b241f4;
+   }
 }
