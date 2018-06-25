@@ -137,10 +137,12 @@ nav h1 a {
   flex-wrap: wrap;
   background-color: #f3f3f3;
   list-style: outside none none;
-  margin: 0;
+  margin: auto;
   padding: 0;
   text-align: center;
-  width:90%;
+  width: 100%;
+  max-width: 1500px;
+  justify-content: center;
 }
 #restaurants-list li {
   background-color: #fff;
@@ -239,7 +241,7 @@ nav h1 a {
   padding: 2px 0;
   text-align: center;
   text-transform: uppercase;
-	width: 90%;
+	width: 100%;
 }
 #restaurant-container, #reviews-container {
   border-bottom: 1px solid #d9d9d9;
