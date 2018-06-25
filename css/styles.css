@@ -281,14 +281,17 @@ nav h1 a {
 
 * ====================== Media Query for Small Devices - Phones ====================== */
 @media only screen and (min-width: 300px) and (max-width: 500px){
-   nav h1 {
+   .inside {
+    font-size: 100mm;
     color: #f44242;
-   }
+  }
+   
 }
 
 * ====================== Media Query for Medium Devices - Tablets====================== */
 @media only screen and (min-width: 501px) and (max-width: 1100px){
-nav h1 {
+   inside {
+    font-size: 100mm;
     color: #b241f4;
-   }
+  }
 }

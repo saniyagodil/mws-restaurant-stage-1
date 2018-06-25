@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,25 +12,27 @@
 <body>
   <header>
     <nav>
-      <h1><a href="/">Restaurant Reviews</a></h1>
+      <h1>
+        <a href="/" aria-label="Site Title: Restaurant Reviews">Restaurant Reviews</a>
+      </h1>
     </nav>
   </header>
 
   <main id="maincontent">
     <section id="map-container">
-      <div id="map"></div>
+      <div id="map" aria-label="Google map displaying locations of Restaurants"></div>
     </section>
     <section>
-      <div class="filter-options">
+      <div class="filter-options" aria-label="Filter results">
         <h2>Filter Results</h2>
-        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" aria-label="Select to Filter Restaurants By Neighborhood">
           <option value="all">All Neighborhoods</option>
         </select>
-        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()" aria-label="Select to Filter Restaurants By Cuisine Type">
           <option value="all">All Cuisines</option>
         </select>
       </div>
-      <ul id="restaurants-list"></ul>
+      <ul id="restaurants-list" aria-label="List of Restaurants"></ul>
     </section>
   </main>
 
@@ -39,7 +41,7 @@
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVI3Ss6-YhCR0PjFjUamY7oaLT0qQ7xNk&libraries=places&callback=initMap"></script>
 
 
-  <footer id="footer">
+  <footer id="footer" aria-label="Footer">
     Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>
 
