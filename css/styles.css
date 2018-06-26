@@ -8,6 +8,11 @@ body,td,th,p{
 	line-height: 1.5;
 }
 
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 body {
 	background-color: #fdfdfd;
 	margin: 0; /*switch to be dependent on viewport, larger screen could have m*/
@@ -115,7 +120,7 @@ nav h1 a {
 /* ====================== Map ====================== */
 #map {
   height: 400px;
-  width: 100%;
+  /*width: 100%;*/
   background-color: #ccc;
 }
 
@@ -156,7 +161,7 @@ nav h1 a {
   margin: auto;
   padding: 0;
   text-align: center;
-  width: 100%;
+ /* width: 100%;*/
   max-width: 1500px;
   justify-content: center;
 }
@@ -178,7 +183,7 @@ nav h1 a {
   margin: 0;
   max-width: 100%;
   max-height: 250px;
-  min-width: 100%;
+  /*min-width: 100%;*/
 }
 
 #restaurants-list li h1 {
@@ -273,7 +278,7 @@ nav h1 a {
 }
 
 #restaurant-container{
-  width: 45%;
+  /*width: 45%;*/
   padding: 150px 2.5% 0 2.5%;
   border-bottom: 1px solid #d9d9d9;
   border-top: 1px solid #fff;
@@ -281,7 +286,7 @@ nav h1 a {
 
 
 #reviews-container {
-  width: 45%;
+/*  width: 45%;*/
   padding: 2.5%;
 }
 
@@ -320,19 +325,18 @@ nav h1 a {
 }
 
 
-* ====================== Media Query for Small Devices - Phones ====================== */
-@media screen and (min-width: 300px) and (max-width: 500px){
-   .inside {
-    font-size: 100mm;
-    color: #f44242;
-  }
-   
+@media screen and (max-width: 500px) {
+ /* For mobile phones*/
+   .box {
+      width: 100%;
+    }
 }
+   
 
-* ====================== Media Query for Medium Devices - Tablets====================== */
-@media screen and (min-width: 501px) and (max-width: 1100px){
-   inside {
-    font-size: 100mm;
-    color: #b241f4;
-  }
+
+
+@media screen and (min-width: 501px) {
+   .box {
+     width: 50%;
+    }
 }
