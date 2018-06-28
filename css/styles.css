@@ -224,7 +224,7 @@ nav h1 a {
 
 .inside #map-container {
   background: blue none repeat scroll 0 0;
-  height: 87%;
+  height: 600px;
   right: 0;
   top: 80px;
 }
@@ -326,14 +326,19 @@ nav h1 a {
  /* For mobile phones*/
    .box {
       width: 100%;
+      margin-bottom: 2%;
     }
 }
    
 
 
 
-@media screen and (min-width: 501px) {
+@media only screen and (min-width: 501px) {
    .box {
      width: 50%;
+    }
+    .container {
+      margin-left: 2%;
+      margin-right: 2%;
     }
 }
