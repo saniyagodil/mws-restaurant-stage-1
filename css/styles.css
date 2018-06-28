@@ -239,8 +239,8 @@ nav h1 a {
 
 .inside #footer {
   bottom: 0;
-  position: absolute;
-  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 #restaurant-name {
