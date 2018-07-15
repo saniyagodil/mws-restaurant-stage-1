@@ -1,4 +1,4 @@
-@charset "utf-8";
+@charset "utf-8";     
 /* CSS Document */
 
 body,td,th,p{
@@ -333,12 +333,12 @@ nav h1 a {
       margin-bottom: 2%;
     }
 }
-   
+
 
 
 
 @media only screen and (min-width: 501px) {
-    
+
    .box {
      width: 50%;
     }
