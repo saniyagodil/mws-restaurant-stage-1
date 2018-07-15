@@ -1,9 +1,8 @@
-
 self.addEventListener('install', function(event){
   event.waitUntil(
     caches.open('restaurant-app')
     .then(function(cache){
-      return cache.addAll(
+      return cache.addAll([
         'index.html',
         'restaurant.html',
         'css/styles.css',
@@ -20,19 +19,10 @@ self.addEventListener('install', function(event){
         'img/8.jpg',
         'img/9.jpg',
         'img/10.jpg'
-      );
+      ]);
     })
   );
 });
-
-
-
-
-/**
-  * Adds all the files below to the cache
-  */
-
-
 
 
 
