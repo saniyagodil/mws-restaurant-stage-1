@@ -32,7 +32,6 @@ self.addEventListener('install', function(event){
   * Adds all the files below to the cache
   */
 
-cache.match(request);
 
 
 
