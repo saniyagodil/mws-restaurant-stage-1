@@ -181,7 +181,9 @@ addMarkersToMap = (restaurants = self.restaurants) => {
   * Register Service Worker and Log Message to check success
   */
 
-if(!navigator.serviceWorker) return;
+if(!navigator.serviceWorker){
+  console.log('Service Worker not supported by this browser');
+};
 navigator.serviceWorker.register('/sw.js').then(function(){
   console.log('Registration successful');
 }).catch(function(){
