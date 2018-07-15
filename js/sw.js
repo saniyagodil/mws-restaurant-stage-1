@@ -1,9 +1,9 @@
 
 self.addEventListener('install', function(event){
   event.waitUntil(
-    caches.open('restaurant-app').then(function(cache){
-      return cache.addAll([
-        '/',
+    caches.open('restaurant-app')
+    .then(function(cache){
+      return cache.addAll(
         'index.html',
         'restaurant.html',
         'css/styles.css',
@@ -20,7 +20,7 @@ self.addEventListener('install', function(event){
         'img/8.jpg',
         'img/9.jpg',
         'img/10.jpg'
-      ]);
+      );
     })
   );
 });
