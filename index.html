@@ -13,22 +13,22 @@
   <header>
     <nav>
       <h1>
-        <a href="/" aria-label="Site Title: Restaurant Reviews">Restaurant Reviews</a>
+        <a href="/" aria-label="Restaurant Reviews" tabindex="1">Restaurant Reviews</a>
       </h1>
     </nav>
   </header>
 
   <main id="maincontent">
-    <section id="map-container">
-      <div id="map" aria-label="Google map displaying locations of Restaurants"></div>
+    <section id="map-container" tabindex="-1">
+      <div id="map" aria-label="Google map"></div>
     </section>
     <section>
       <div class="filter-options" aria-label="Filter results">
         <h2>Filter Results</h2>
-        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" aria-label="Filter Restaurants By Neighborhood">
+        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" aria-label="Filter Restaurants By Neighborhood" tabindex="2">
           <option value="all">All Neighborhoods</option>
         </select>
-        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()" aria-label="Filter Restaurants By Cuisine Type">
+        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()" aria-label="Filter Restaurants By Cuisine Type" tabindex="3">
           <option value="all">All Cuisines</option>
         </select>
       </div>
