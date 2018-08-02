@@ -3,7 +3,7 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+
   <!-- Normalize.css for better cross-browser consistency -->
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
 
@@ -17,7 +17,7 @@
   <header>
 
     <nav>
-      <h1><a href="/" aria-label="Site Title: Restaurant Reviews">Restaurant Reviews</a></h1>
+      <h1><a href="/" aria-label="Site Title: Restaurant Reviews" tabindex="1">Restaurant Reviews</a></h1>
     </nav>
 
     <ul id="breadcrumb" >
@@ -26,11 +26,11 @@
 
   </header>
 
-  
+
   <main id="maincontent">
     <div class="container">
-    
-      <div class="box">
+
+      <div class="box" tabindex="2">
         <section id="restaurant-container" aria-label="Restaurant Related Information Section">
             <h1 id="restaurant-name" aria-label="Restaurant Name"></h1>
             <p id="restaurant-cuisine" aria-label="Cuisine Type"></p>
@@ -40,52 +40,52 @@
         </section>
       </div>
 
-      <div class="box">
+      <div class="box" tabindex="-1">
         <section id="map-container" aria-label="Map showing Restaurant">
           <div id="map"></div>
         </section>
       </div>
-    
 
-      <div class="box1">
+
+      <div class="box1" tabindex="3">
         <section id="reviews-container">
           <ul id="reviews-list"></ul>
         </section>
       </div>
-        
+
     </div>
 
-    
-    
- 
 
-   
-  
-   
 
-    
 
-    
+
+
+
+
+
+
+
+
 
   </main>
-  
+
 
 
   <footer id="footer" aria-label="Site Footer">
-    Copyright (c) 2017 
-    <a href="/"><strong>Restaurant Reviews</strong></a> 
+    Copyright (c) 2017
+    <a href="/"><strong>Restaurant Reviews</strong></a>
     All Rights Reserved.
   </footer>
 
 
-  
+
   <!-- Database helpers -->
   <script type="text/javascript" src="js/dbhelper.js"></script>
   <!-- Main javascript file -->
   <script type="text/javascript" src="js/restaurant_info.js"></script>
   <!-- Google Maps -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVI3Ss6-YhCR0PjFjUamY7oaLT0qQ7xNk&libraries=places&callback=initMap"></script>
-  
+
 
 </body>
 

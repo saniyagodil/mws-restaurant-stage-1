@@ -333,12 +333,12 @@ nav h1 a {
       margin-bottom: 2%;
     }
 }
-   
+
 
 
 
 @media only screen and (min-width: 501px) {
-    
+
    .box {
      width: 50%;
     }
@@ -354,6 +354,6 @@ nav h1 a {
 
     .inside #map-container {
       padding: 220px 7% 5% 2.5%;
-      height: 600px;
+      height: 70%;
     }
 }

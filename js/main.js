@@ -141,6 +141,7 @@ createRestaurantHTML = (restaurant) => {
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.alt = 'Picture from ' + restaurant.name + ' Restaurant';
   li.append(image);
 
   const name = document.createElement('h1');
@@ -178,13 +179,17 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 }
 
 
-if (navigator.serviceWorker) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/sw.js')
-    .then(function() {
-      console.log('Yay! Service Worker Registered');
-  }).catch(function() {
-    console.log('Boo! Service Worker Not Registered');
-  })
-}
 
+
+/**
+  * Register Service Worker and Log Message to check success
+  */
+
+if(!navigator.serviceWorker){
+  console.log('Service Worker not supported by this browser');
+};
+navigator.serviceWorker.register('/sw.js').then(function(){
+  console.log('Registration successful');
+}).catch(function(){
+  console.log('Registration failed');
+})
