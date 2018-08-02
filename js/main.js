@@ -176,3 +176,15 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     self.markers.push(marker);
   });
 }
+
+
+if (navigator.serviceWorker) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js')
+    .then(function() {
+      console.log('Yay! Service Worker Registered');
+  }).catch(function() {
+    console.log('Boo! Service Worker Not Registered');
+  })
+}
+
