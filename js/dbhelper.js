@@ -1,4 +1,6 @@
 
+import idb from 'idb';
+
 //Common database helper functions.
 class DBHelper {
 
@@ -7,6 +9,24 @@ class DBHelper {
     return `http://localhost:${port}/restaurants`;
   }
   
+
+////////////////////
+var dbPromise = idb.open('restaurant-db', 1, function(upgradeDb ){
+  var keyValStore = upgradeDb.createObjectStore('kevval');
+  keyValStore.put('world', 'hello');
+}
+
+dbPromise.then(function(db){
+  var tx = db.transaction('keyval');
+  var keyValStore = tx.objectStore('keyval');
+  return keyValStore.get('hello');
+}).then(function(val) {
+  console.log('The value of "hello" is:', val)
+})
+
+
+
+////////////////////
 
 //Fetch all restaurants.
    
