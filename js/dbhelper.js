@@ -5,10 +5,12 @@ import idb from 'idb';
 class DBHelper {
 
   static get DATABASE_URL() {
-    const port = 1337 // Change this to your server port
+    const port = 1337 // Change this to 8000 for local data and 1337 for data from server
     return `http://localhost:${port}/restaurants`;
   }
-  
+
+//  `http://localhost:${port}/restaurants' 1337
+//  'http://localhost:${port}/data/restaurants.json 8000'
 
 ////////////////////
 var dbPromise = idb.open('restaurant-db', 1, function(upgradeDb ){
@@ -26,12 +28,25 @@ dbPromise.then(function(db){
 
 
 
+
+
+
+
 ////////////////////
 
 //Fetch all restaurants.
    
-  static fetchRestaurants(callback) {
-    fetch(`http://localhost:${port}/restaurants`).then(response => response.json())
+  static fetchRestaurants(callback, id) {
+    let requestUrl;
+    if(!id){
+      requestUrl = DBHelper.DATABASE_URL;
+    } else {
+      requestUrl = DBHelper.DATABASE_URL + "/" + id;
+    }
+
+
+
+    fetch(requestUrl, {method: "GET"}).then(response => response.json())
     .then(getRestaurantData).catch(error => handleError(error));
 
   }
@@ -43,9 +58,15 @@ dbPromise.then(function(db){
 
   function handleError(error){
     console.log(error)log;
-    const errorMessage = ('Request failed. Error: $(error)')
+    const errorMessage = ('Request failed. Error: $(error)');
+    callback(error, null);
   }
+////////////////////////////
 
+
+
+
+//////////////////
    
 //Fetch a restaurant by its ID.
   static fetchRestaurantById(id, callback) {
