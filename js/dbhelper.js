@@ -15,6 +15,7 @@ class DBHelper {
 ////////////////////
 var dbPromise = idb.open('restaurant-db', 1, function(upgradeDb ){
   var keyValStore = upgradeDb.createObjectStore('kevval');
+  var restInfo = upgradeDb.createObjectStore("restaurants", {keyPath: id})
   keyValStore.put('world', 'hello');
 }
 
