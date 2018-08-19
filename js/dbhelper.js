@@ -15,7 +15,7 @@ class DBHelper {
 ////////////////////
 var dbPromise = idb.open('restaurant-db', 1, function(upgradeDb ){
   var keyValStore = upgradeDb.createObjectStore('kevval');
-  var restInfo = upgradeDb.createObjectStore("restaurants", {keyPath: id})
+  var restInfo = upgradeDb.createObjectStore("restaurants", {keyPath: id});
   keyValStore.put('world', 'hello');
 }
 
@@ -26,7 +26,6 @@ dbPromise.then(function(db){
 }).then(function(val) {
   console.log('The value of "hello" is:', val)
 })
-
 
 
 
@@ -67,6 +66,7 @@ dbPromise.then(function(db){
 
 
 
+//////////////////
 //////////////////
    
 //Fetch a restaurant by its ID.
