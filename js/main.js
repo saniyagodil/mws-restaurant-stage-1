@@ -96,19 +96,30 @@ updateRestaurants = () => {
   const cuisine = cSelect[cIndex].value;
   const neighborhood = nSelect[nIndex].value;
 
+//   DBHelper.fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood, (error, restaurants) => {
+//     if (error) { // Got an error!
+//       console.error(error);
+//     } else {
+//       resetRestaurants(restaurants);
+//       fillRestaurantsHTML();
+//     }
+//   })
+// }
+
+
   DBHelper.fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood, (error, restaurants) => {
     if (error) { // Got an error!
       console.error(error);
     } else {
       resetRestaurants(restaurants);
-      fillRestaurantsHTML();
+      fillRestaurantsHTML(restaurants);
     }
   })
 }
 
-/**
- * Clear current restaurants, their HTML and remove their map markers.
- */
+
+
+//Clear current restaurants, their HTML and remove their map markers.
 resetRestaurants = (restaurants) => {
   // Remove all restaurants
   self.restaurants = [];
@@ -121,20 +132,18 @@ resetRestaurants = (restaurants) => {
   self.restaurants = restaurants;
 }
 
-/**
- * Create all restaurants HTML and add them to the webpage.
- */
-fillRestaurantsHTML = (restaurants = self.restaurants) => {
+//Create all restaurants HTML and add them to the webpage.
+fillRestaurantsHTML = (restaurants) => {
   const ul = document.getElementById('restaurants-list');
   restaurants.forEach(restaurant => {
     ul.append(createRestaurantHTML(restaurant));
+
   });
   addMarkersToMap();
 }
 
-/**
- * Create restaurant HTML.
- */
+//Create restaurant HTML.
+ 
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
 

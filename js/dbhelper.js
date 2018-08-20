@@ -1,5 +1,5 @@
-
-import idb from 'idb';
+<script type="module">
+import idb from '/node_modules/idb/index.js';
 
 //Common database helper functions.
 class DBHelper {
@@ -9,8 +9,7 @@ class DBHelper {
     return `http://localhost:${port}/restaurants`;
   }
 
-//  `http://localhost:${port}/restaurants' 1337
-//  'http://localhost:${port}/data/restaurants.json 8000'
+//  `http://localhost:${port}/restaurants', 1337, OR http://localhost:${port}/data/restaurants.json, 8000'
 
 ////////////////////
 var dbPromise = idb.open('restaurant-db', 1, function(upgradeDb ){
@@ -26,11 +25,6 @@ dbPromise.then(function(db){
 }).then(function(val) {
   console.log('The value of "hello" is:', val)
 })
-
-
-
-
-
 
 ////////////////////
 
@@ -190,3 +184,4 @@ dbPromise.then(function(db){
   }
 
 }
+</script>
