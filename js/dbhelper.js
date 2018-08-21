@@ -3,7 +3,7 @@
 class DBHelper {
 
   static get DATABASE_URL() {
-    const port = 1337 // Change this to 8000 for local data and 1337 for data from server
+    const port = 1337; // Change this to 8000 for local data and 1337 for data from server
     return `http://localhost:${port}/restaurants`;
   }
 
@@ -14,7 +14,7 @@ var dbPromise = idb.open('restaurant-db', 1, function(upgradeDb ){
   var keyValStore = upgradeDb.createObjectStore('kevval');
   var restInfo = upgradeDb.createObjectStore("restaurants", {keyPath: id});
   keyValStore.put('world', 'hello');
-}
+})
 
 dbPromise.then(function(db){
   var tx = db.transaction('keyval');
@@ -22,7 +22,7 @@ dbPromise.then(function(db){
   return keyValStore.get('hello');
 }).then(function(val) {
   console.log('The value of "hello" is:', val)
-})
+});
 
 ////////////////////
 
@@ -42,7 +42,7 @@ dbPromise.then(function(db){
 
 
   function getRestaurantData(restaurants){
-    callback(null, restaurants)
+    callback(null, restaurants);
   }
 
   function handleError(error){
