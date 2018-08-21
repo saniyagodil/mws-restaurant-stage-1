@@ -1,5 +1,3 @@
-<script type="module">
-import idb from '/node_modules/idb/index.js';
 
 //Common database helper functions.
 class DBHelper {
@@ -37,9 +35,6 @@ dbPromise.then(function(db){
     } else {
       requestUrl = DBHelper.DATABASE_URL + "/" + id;
     }
-
-
-
     fetch(requestUrl, {method: "GET"}).then(response => response.json())
     .then(getRestaurantData).catch(error => handleError(error));
 
@@ -184,4 +179,3 @@ dbPromise.then(function(db){
   }
 
 }
-</script>
