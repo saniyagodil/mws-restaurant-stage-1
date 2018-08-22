@@ -5,22 +5,22 @@ class DBHelper {
     const port = 1337; // Change this to 8000 for local data and 1337 for data from server
     return `http://localhost:${port}/restaurants`;
   }
-
 //  `http://localhost:${port}/restaurants', 1337, OR http://localhost:${port}/data/restaurants.json, 8000'
 
 ////////////////////
   static restarauntDB(){
     const indexedDB = idb.open('restaurant-db', 1, function(upgradeDb ){
-      var restInfo = upgradeDb.createObjectStore("restaurants", {keyPath: id, autoIncrement: true});
+      var restInfo = upgradeDb.createObjectStore("restaurants", {keyPath: 'id', autoIncrement: true});
     });
     return indexedDB;
   }
 
-  dbPromise.then(function(db){
-    var tx = db.transaction('restaurants');
+  static readObjectStore(db, trans){
+    var tx = db.transaction('restaurants', trans);
     return tx.objectStore('restaurants');
-  })
+  }
 
+  
 ////////////////////
 
 //Fetch all restaurants.
@@ -33,27 +33,30 @@ class DBHelper {
       requestUrl = DBHelper.DATABASE_URL + "/" + id;
     }
     fetch(requestUrl, {method: "GET"}).then(response => response.json())
-    .then(getRestaurantData).catch(error => handleError(error));
-
+    .then(restaurants => {
+      if(restaurants.length){
+        const neighborhoods = restaurants.map((v, i) => restaurants[i].neighborhood);
+        fetchedNeighborhoods = neighborhoods.filter((v, i) => neighborhoods.indexOf(v) == i);
+        const cuisines = restaurants.map((v, i) => restaurants[i].cuisine_type);
+        // Remove duplicates from cuisines
+        fetchedCuisines = cuisines.filter((v, i) => cuisines.indexOf(v) == i);
+      }
+    }).catch(error => callback('Request failed. Error: $(error)', null));
   }
 
 
-  function getRestaurantData(restaurants){
-    callback(null, restaurants)
-  }
 
-  function handleError(error){
-    console.log(error)log;
-    const errorMessage = ('Request failed. Error: $(error)');
-    callback(error, null);
-  }
+  // function getRestaurantData(restaurants){
+  //   callback(null, restaurants)
+  // }
+
+  // function handleError(error){
+  //   console.log(error)log;
+  //   const errorMessage = ('Request failed. Error: $(error)');
+  //   callback(error, null);
+  // }
 ////////////////////////////
 
-
-
-
-//////////////////
-//////////////////
    
 //Fetch a restaurant by its ID.
   static fetchRestaurantById(id, callback) {
