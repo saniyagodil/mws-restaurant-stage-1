@@ -1,7 +1,7 @@
-/*
- * Jake Archibald's fabulous IndexedDB Promise library
- * https://github.com/jakearchibald/idb
- */
+
+//Jake Archibald's IndexedDB Promise library
+// https://github.com/jakearchibald/idb
+ 
 'use strict';
 
 (function() {

@@ -1,4 +1,3 @@
-
 //Common database helper functions.
 class DBHelper {
 
@@ -10,19 +9,17 @@ class DBHelper {
 //  `http://localhost:${port}/restaurants', 1337, OR http://localhost:${port}/data/restaurants.json, 8000'
 
 ////////////////////
-var dbPromise = idb.open('restaurant-db', 1, function(upgradeDb ){
-  var keyValStore = upgradeDb.createObjectStore('kevval');
-  var restInfo = upgradeDb.createObjectStore("restaurants", {keyPath: id});
-  keyValStore.put('world', 'hello');
-})
+  static restarauntDB(){
+    const indexedDB = idb.open('restaurant-db', 1, function(upgradeDb ){
+      var restInfo = upgradeDb.createObjectStore("restaurants", {keyPath: id, autoIncrement: true});
+    });
+    return indexedDB;
+  }
 
-dbPromise.then(function(db){
-  var tx = db.transaction('keyval');
-  var keyValStore = tx.objectStore('keyval');
-  return keyValStore.get('hello');
-}).then(function(val) {
-  console.log('The value of "hello" is:', val)
-});
+  dbPromise.then(function(db){
+    var tx = db.transaction('restaurants');
+    return tx.objectStore('restaurants');
+  })
 
 ////////////////////
 
@@ -42,7 +39,7 @@ dbPromise.then(function(db){
 
 
   function getRestaurantData(restaurants){
-    callback(null, restaurants);
+    callback(null, restaurants)
   }
 
   function handleError(error){
