@@ -35,11 +35,11 @@ class DBHelper {
     fetch(requestUrl, {method: "GET"}).then(response => response.json())
     .then(restaurants => {
       if(restaurants.length){
-        const neighborhoods = restaurants.map((v, i) => restaurants[i].neighborhood);
-        fetchedNeighborhoods = neighborhoods.filter((v, i) => neighborhoods.indexOf(v) == i);
-        const cuisines = restaurants.map((v, i) => restaurants[i].cuisine_type);
-        // Remove duplicates from cuisines
-        fetchedCuisines = cuisines.filter((v, i) => cuisines.indexOf(v) == i);
+        // const neighborhoods = restaurants.map((v, i) => restaurants[i].neighborhood);
+        // fetchedNeighborhoods = neighborhoods.filter((v, i) => neighborhoods.indexOf(v) == i);
+        // const cuisines = restaurants.map((v, i) => restaurants[i].cuisine_type);
+        // // Remove duplicates from cuisines
+        // fetchedCuisines = cuisines.filter((v, i) => cuisines.indexOf(v) == i);
       }
     }).catch(error => callback('Request failed. Error: $(error)', null));
   }
