@@ -25,25 +25,53 @@ class DBHelper {
 
 //Fetch all restaurants.
    
-  static fetchRestaurants(callback, id) {
-    let requestUrl;
-    if(!id){
-      requestUrl = DBHelper.DATABASE_URL;
-    } else {
-      requestUrl = DBHelper.DATABASE_URL + "/" + id;
-    }
-    fetch(requestUrl, {method: "GET"}).then(response => response.json())
-    .then(restaurants => {
-      if(restaurants.length){
-        // const neighborhoods = restaurants.map((v, i) => restaurants[i].neighborhood);
-        // fetchedNeighborhoods = neighborhoods.filter((v, i) => neighborhoods.indexOf(v) == i);
-        // const cuisines = restaurants.map((v, i) => restaurants[i].cuisine_type);
-        // // Remove duplicates from cuisines
-        // fetchedCuisines = cuisines.filter((v, i) => cuisines.indexOf(v) == i);
-      }
-    }).catch(error => callback('Request failed. Error: $(error)', null));
-  }
+  // static fetchRestaurants(callback, id) {
+  //   let requestUrl;
+  //   if(!id){
+  //     requestUrl = DBHelper.DATABASE_URL;
+  //   } else {
+  //     requestUrl = DBHelper.DATABASE_URL + "/" + id;
+  //   }
+  //   fetch(requestUrl, {method: "GET"}).then(response => response.json())
+  //   .then(restaurants => {
+  //     if(restaurants.length){
+  //       // const neighborhoods = restaurants.map((v, i) => restaurants[i].neighborhood);
+  //       // fetchedNeighborhoods = neighborhoods.filter((v, i) => neighborhoods.indexOf(v) == i);
+  //       // const cuisines = restaurants.map((v, i) => restaurants[i].cuisine_type);
+  //       // // Remove duplicates from cuisines
+  //       // fetchedCuisines = cuisines.filter((v, i) => cuisines.indexOf(v) == i);
+  //     }
+  //   }).catch(error => callback('Request failed. Error: $(error)', null));
+  // }
 
+static fetchRestaurants(callback, id) {
+   let requestUrl;
+   if(!id){
+     requestUrl = DBHelper.DATABASE_URL;
+   } else {
+     requestUrl = DBHelper.DATABASE_URL + “/” + id;
+   }
+   fetch(requestUrl, {method: “GET”}).then(response => response.json())
+   .then(restaurants => {
+     console.log(“Retrieved restaurants”, restaurants);
+     
+     if(restaurants.length){
+       callback(null, restaurants);
+       /*
+       const neighborhoods = restaurants.map((v, i) => restaurants[i][“neighborhood”]);
+       console.log(“neighborhoods: “, neighborhoods);
+       fetchedNeighborhoods = neighborhoods.filter((v, i) => neighborhoods.indexOf(v) == i);
+       console.log(“neighborhoods filtered: “, fetchedNeighborhoods);
+
+       const cuisines = restaurants.map((v, i) => restaurants[i][“cuisine_type”]);
+       console.log(“cuisines: “, cuisines);
+       // Remove duplicates from cuisines
+       fetchedCuisines = cuisines.filter((v, i) => cuisines.indexOf(v) == i);
+       console.log(“cuisines filtered: “, fetchedCuisines);
+       */
+     }
+   }).catch(error => callback(“Request failed. Error: “, error));
+ }
 
 
   // function getRestaurantData(restaurants){
