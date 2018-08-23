@@ -49,11 +49,11 @@ static fetchRestaurants(callback, id) {
    if(!id){
      requestUrl = DBHelper.DATABASE_URL;
    } else {
-     requestUrl = DBHelper.DATABASE_URL + “/” + id;
+     requestUrl = DBHelper.DATABASE_URL + "/" + id;
    }
-   fetch(requestUrl, {method: “GET”}).then(response => response.json())
+   fetch(requestUrl, {method: "GET"}).then(response => response.json())
    .then(restaurants => {
-     console.log(“Retrieved restaurants”, restaurants);
+     console.log("Retrieved restaurants", restaurants);
      
      if(restaurants.length){
        callback(null, restaurants);
@@ -70,7 +70,7 @@ static fetchRestaurants(callback, id) {
        console.log(“cuisines filtered: “, fetchedCuisines);
        */
      }
-   }).catch(error => callback(“Request failed. Error: “, error));
+   }).catch(error => callback("Request failed. Error: ", error));
  }
 
 
