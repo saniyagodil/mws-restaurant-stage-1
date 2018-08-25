@@ -190,7 +190,6 @@ static fetchRestaurants(callback, id) {
   
   //Restaurant image URL.
   static imageUrlForRestaurant(restaurant) {
-    // debugger;
     if(restaurant.photograph == undefined)
       restaurant.photograph = id;
     return (`/img/${restaurant.photograph}` + '.jpg');
