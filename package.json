@@ -20,10 +20,13 @@
   },
   "homepage": "https://github.com/saniyagodil/mws-restaurant-stage-1#readme",
   "devDependencies": {
-    "gulp-imagemin": "^4.1.0"
+    "gulp-imagemin": "^4.1.0",
+    "gulp-responsive": "^2.11.0"
   },
   "dependencies": {
     "gulp": "^3.9.1",
-    "gulp-install": "^1.1.0"
+    "gulp-install": "^1.1.0",
+    "gulp-load-plugins": "^1.5.0",
+    "imagemin-jpeg-recompress": "^5.1.0"
   }
 }
