@@ -1,0 +1,29 @@
+{
+  "name": "restaurantreviews",
+  "version": "1.0.0",
+  "description": "Web application for restaurant reviews",
+  "main": "gulp.js",
+  "scripts": {
+    "test": "gulp image"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saniyagodil/mws-restaurant-stage-1.git"
+  },
+  "keywords": [
+    "restaurant"
+  ],
+  "author": "Saniya Godil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saniyagodil/mws-restaurant-stage-1/issues"
+  },
+  "homepage": "https://github.com/saniyagodil/mws-restaurant-stage-1#readme",
+  "devDependencies": {
+    "gulp-imagemin": "^4.1.0"
+  },
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-install": "^1.1.0"
+  }
+}
