@@ -191,10 +191,12 @@ static fetchRestaurants(callback, id) {
   
   //Restaurant image URL, gets image
   static imageUrlForRestaurant(restaurant) {
-    if(restaurant.photograph == undefined)
-      restaurant.photograph = id;
-    console.log(`/img/${restaurant.photograph}` + '-500px' + '.jpg');
-    return (`/img/${restaurant.photograph}` + '-500px' + '.jpg');
+    // if(restaurant.photograph == undefined)
+    //   restaurant.photograph = id;
+    // console.log(`/img/${restaurant.photograph}` + '-500px' + '.jpg');
+    // return (`/img/${restaurant.photograph}` + '-500px' + '.jpg');
+
+    return (`/img/${restaurant.id}` + '-500px' + '.jpg');
   }
 
   
