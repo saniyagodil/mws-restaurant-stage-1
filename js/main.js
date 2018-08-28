@@ -108,7 +108,9 @@ updateRestaurants = () => {
 
 
   DBHelper.fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood, (error, restaurants) => {
-    if (error) { // Got an error!
+    console.log('Error');
+    debugger;
+    if (error) { 
       console.error(error);
     } else {
       resetRestaurants(restaurants);
