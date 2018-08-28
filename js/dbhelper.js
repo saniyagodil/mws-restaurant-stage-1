@@ -135,6 +135,7 @@ static fetchRestaurants(callback, id) {
   static fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood, callback) {
     // Fetch all restaurants
     DBHelper.fetchRestaurants((error, restaurants) => {
+      console.log(restaurants);
       if (error) {
         callback(error, null);
       } else {
