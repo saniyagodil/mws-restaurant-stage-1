@@ -1,17 +1,14 @@
 {
   "short_name": "Yum?",
+  "name": {
+  "short_name": "Yum?",
   "name": "Restaurant Reviews",
   "icons": [
     {
       "src": "/img/appIcon.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "192x192"
     }
-    // {
-    //   "src": "/img/appIcon-small.png",
-    //   "type": "image/png",
-    //   "sizes": "192x192"
-    // }
   ],
   "start_url": "/",
   "background_color": "#d2e6f7",
