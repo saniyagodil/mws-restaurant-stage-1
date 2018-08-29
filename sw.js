@@ -19,7 +19,8 @@ self.addEventListener('install', function(event){
         'img/8-500px.jpg',
         'img/9-500px.jpg',
         'img/10-500px.jpg',
-        'data/restaurants.json'
+        'data/restaurants.json',
+        'manifest.json'
       ]);
     })
   );
