@@ -196,7 +196,7 @@ static fetchRestaurants(callback, id) {
     // console.log(`/img/${restaurant.photograph}` + '-500px' + '.jpg');
     // return (`/img/${restaurant.photograph}` + '-500px' + '.jpg');
 
-    return (`/img/${restaurant.id}` + '-500px' + '.jpg');
+    return (`/img/${restaurant.id}` + '-200px' + '.jpg');
   }
 
   
