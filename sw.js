@@ -1,4 +1,7 @@
-self.addEventListener('install', function(event){
+
+
+
+
   event.waitUntil(
     caches.open('restaurant-app')
     .then(function(cache){
@@ -28,13 +31,30 @@ self.addEventListener('install', function(event){
 
 
 
-self.addEventListener('fetch', function(event){
+// self.addEventListener('fetch', function(event){
+//   if (event.request.cache === 'only-if-cached' && event.request.mode !== 'same-origin')
+//     return
+//       event.respondWith(
+//         caches.match(event.request).then(function(response){
+//           if(response) return response;
+//           return fetch(event.request);
+//         })
+//       );
+// });
+
+
+
+self.addEventListener('fetch', function(event) {
   if (event.request.cache === 'only-if-cached' && event.request.mode !== 'same-origin')
     return
       event.respondWith(
-        caches.match(event.request).then(function(response){
-          if(response) return response;
-          return fetch(event.request);
+        caches.open('restaurant-app').then(function(cache) {
+          return cache.match(event.request).then(function (response) {
+            return response || fetch(event.request).then(function(response) {
+              cache.put(event.request, response.clone());
+              return response;
+            });
+          });
         })
       );
 });
