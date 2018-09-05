@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const minify = require('gulp-minify');
 
 
 /*Imagemin reduced the png file well but didn't change jpg file sizes*/
@@ -47,4 +48,10 @@ gulp.task('images', function () {
       withMetadata: false,
     }))
     .pipe(gulp.dest('img'));
+});
+
+gulp.task('minifyJS', function() {
+  gulp.src(['js/*.js'])
+    .pipe(minify())
+    .pipe(gulp.dest('dist'))
 });
