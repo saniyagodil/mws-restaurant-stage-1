@@ -62,7 +62,7 @@ static fetchReviewById(id, callback){
    .then(result => {
     callback(null, result)
     console.log("Retrieved reviews", restaurants);
-   }).catch(error => callback("Request for Reviews failed. Error: ", error));
+   }).catch(error => callback(error, "Request for Reviews failed. Error"));
 }
 
 
