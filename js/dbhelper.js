@@ -61,6 +61,7 @@ static fetchReviewById(id, callback){
   debugger;
   fetch(reviewURL, {method: "GET"}).then(response => response.json())
    .then(result => {
+    console.log('reviews:', result);
     callback(null, result)
     // console.log("Retrieved reviews", reviews);
    }).catch(error => callback(error, "Request for Reviews failed. Error"));
