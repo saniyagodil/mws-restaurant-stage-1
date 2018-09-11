@@ -1,4 +1,5 @@
 let restaurant;
+let heartState;
 var map;
 
 /**
@@ -45,9 +46,14 @@ fetchRestaurantFromURL = (callback) => {
   }
 }
 
-/**
- * Create restaurant HTML and add it to the webpage
- */
+
+/******************/
+/*Favorite Element*/
+
+
+/******************/
+/* Create restaurant HTML and add it to the webpage*/
+
 fillRestaurantHTML = (restaurant = self.restaurant) => {
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
@@ -68,7 +74,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     fillRestaurantHoursHTML();
   }
   // fill reviews
-  fillReviewsHTML();
+  DBHelper.fetchReviewById(restaurant.id, fillReviewsHTML);
 }
 
 /**
