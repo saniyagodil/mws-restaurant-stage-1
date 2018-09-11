@@ -58,7 +58,14 @@ static fetchRestaurants(callback, id) {
 //Fetches a restaurant's reviews by its ID.
 static fetchReviewById(id, callback){
   const reviewURL = DBHelper.REVIEWS_DB_URL + "/?restaurant_id=" + id;
-
+  fetch(reviewURL, {method: "GET"}).then(response => response.json())
+   .then(restaurants => {
+     console.log("Retrieved reviews", restaurants);
+     // if(restaurants.length){
+     //   callback(null, restaurants);
+      
+     // }
+   }).catch(error => callback("Request for Reviews failed. Error: ", error));
 
   ///FETCH METHOD
 }
