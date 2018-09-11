@@ -74,7 +74,8 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     fillRestaurantHoursHTML();
   }
   // fill reviews
-  DBHelper.fetchReviewById(restaurant.id, fillReviewsHTML);
+  // DBHelper.fetchReviewById(restaurant.id, fillReviewsHTML);
+  DBHelper.fetchReviewById(id).then(reviews => fillReviewsHTML(reviews));
 }
 
 /**
