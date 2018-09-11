@@ -56,17 +56,25 @@ static fetchRestaurants(callback, id) {
  }
 
 //Fetches a restaurant's reviews by its ID.
-static fetchReviewById(id, callback){
-  const reviewURL = DBHelper.REVIEWS_DB_URL + "/?restaurant_id=" + id;
-  debugger;
-  fetch(reviewURL, {method: "GET"}).then(response => response.json())
-   .then(result => {
-    console.log('reviews:', result);
-    callback(null, result)
-    // console.log("Retrieved reviews", reviews);
-   }).catch(error => callback(error, "Request for Reviews failed. Error"));
-}
+// static fetchReviewById(id, callback){
+//   const reviewURL = DBHelper.REVIEWS_DB_URL + "/?restaurant_id=" + id;
+//   debugger;
+//   fetch(reviewURL, {method: "GET"}).then(response => response.json())
+//    .then(result => {
+//     console.log('reviews:', result);
+//     callback(null, result)
+//     // console.log("Retrieved reviews", reviews);
+//    }).catch(error => callback(error, "Request for Reviews failed. Error"));
+// }
 
+fetchReviewById = (id = self.id) => {
+  const reviewURL = DBHelper.REVIEWS_DB_URL + "/?restaurant_id=" + id;
+  fetch(reviewURL, {method: "GET"}).then(response => response.json())
+   .then(
+    return result;
+    // console.log("Retrieved reviews", reviews);
+   }).catch(error => return "Request for Reviews failed. Error");
+}
 
   // function getRestaurantData(restaurants){
   //   callback(null, restaurants)
