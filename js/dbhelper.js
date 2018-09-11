@@ -5,6 +5,11 @@ class DBHelper {
     const port = 1337; // Change this to 8000 for local data and 1337 for data from server
     return `http://localhost:${port}/restaurants`;
   }
+
+  static get REVIEWS_DB_URL(){
+    const port = 1337;
+    return `http://localhost:${port}/reviews`;
+  }
 //  `http://localhost:${port}/restaurants', 1337, OR http://localhost:${port}/data/restaurants.json, 8000'
 
 ////////////////////
@@ -21,29 +26,6 @@ class DBHelper {
   }
 
   
-////////////////////
-
-//Fetch all restaurants.
-   
-  // static fetchRestaurants(callback, id) {
-  //   let requestUrl;
-  //   if(!id){
-  //     requestUrl = DBHelper.DATABASE_URL;
-  //   } else {
-  //     requestUrl = DBHelper.DATABASE_URL + "/" + id;
-  //   }
-  //   fetch(requestUrl, {method: "GET"}).then(response => response.json())
-  //   .then(restaurants => {
-  //     if(restaurants.length){
-  //       // const neighborhoods = restaurants.map((v, i) => restaurants[i].neighborhood);
-  //       // fetchedNeighborhoods = neighborhoods.filter((v, i) => neighborhoods.indexOf(v) == i);
-  //       // const cuisines = restaurants.map((v, i) => restaurants[i].cuisine_type);
-  //       // // Remove duplicates from cuisines
-  //       // fetchedCuisines = cuisines.filter((v, i) => cuisines.indexOf(v) == i);
-  //     }
-  //   }).catch(error => callback('Request failed. Error: $(error)', null));
-  // }
-
 static fetchRestaurants(callback, id) {
    let requestUrl;
    if(!id){
@@ -72,6 +54,14 @@ static fetchRestaurants(callback, id) {
      }
    }).catch(error => callback("Request failed. Error: ", error));
  }
+
+//Fetches a restaurant's reviews by its ID.
+static fetchReviewById(id, callback){
+  const reviewURL = DBHelper.REVIEWS_DB_URL + "/?restaurant_id=" + id;
+
+
+  ///FETCH METHOD
+}
 
 
   // function getRestaurantData(restaurants){

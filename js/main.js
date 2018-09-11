@@ -96,16 +96,6 @@ updateRestaurants = () => {
   const cuisine = cSelect[cIndex].value;
   const neighborhood = nSelect[nIndex].value;
 
-//   DBHelper.fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood, (error, restaurants) => {
-//     if (error) { // Got an error!
-//       console.error(error);
-//     } else {
-//       resetRestaurants(restaurants);
-//       fillRestaurantsHTML();
-//     }
-//   })
-// }
-
 
   DBHelper.fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood, (error, restaurants) => {
     console.log(restaurants);
@@ -143,30 +133,75 @@ fillRestaurantsHTML = (restaurants) => {
   addMarkersToMap();
 }
 
-//Create restaurant HTML.
- 
+//Create restaurant HTML. Assembles all restaurant's components
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
 
+  /******************/
+  /*Image Element*/
   const image = document.createElement('img');
   image.className = 'restaurant-img';
+  // Attempt to lazy load resulted in error, COME BACK TO LATER
   // image.data-src = DBHelper.imageUrlForRestaurant(restaurant);
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   image.alt = 'Picture from ' + restaurant.name + ' Restaurant';
   li.append(image);
 
+
+  /******************/
+  /*Restaurant Name Element*/
   const name = document.createElement('h1');
   name.innerHTML = restaurant.name;
   li.append(name);
 
+
+  /******************/
+  /*Favorite Element*/
+  
+  // console.log("is_favorite: ", restaurant["is_favorite"]);
+  // const isFavorite;
+  // /*Checking that is_Favorite element exists and equals true*/
+  // if(restaurant["is_favorite"] && restaurant["is_favorite"].toString() === "true"){
+  //   isFavorite = true;
+  // } else {
+  //   isFavorite = false;
+  // }
+  
+  // const favoriteDiv = document.createElement("div");
+  // favoriteDiv.className = "favorite-icon";
+  // const favorite = document.createElement("button");
+  
+  // /*Favorite button image selection*/
+  // if(favorite.style.background = isFavorite){
+  //   `url("/img/black-heart.svg") no-repeat`
+  // } else {
+  //   `url("/img/outline-heart.svg") no-repeat`;
+  // }
+   
+  // /*Button Label for Accessibility/Screen Readers*/
+  // favorite.innerHTML = isFavorite
+  //   ? restaurant.name + " is a favorite"
+  //   : restaurant.name + " is not a favorite";
+  // favorite.id = "favorite-icon-" + restaurant.id;
+  // favorite.onclick = event => handleFavoriteClick(restaurant.id, !isFavorite);
+  // favoriteDiv.append(favorite);
+  // div.append(favoriteDiv);
+
+
+  /******************/
+  /*Neighborhood Element*/
   const neighborhood = document.createElement('p');
   neighborhood.innerHTML = restaurant.neighborhood;
   li.append(neighborhood);
 
+  /******************/
+  /*Address Element*/
   const address = document.createElement('p');
   address.innerHTML = restaurant.address;
   li.append(address);
 
+  /******************/
+  /*Link to Details, Element*/
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
