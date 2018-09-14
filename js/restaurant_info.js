@@ -146,6 +146,20 @@ createReviewHTML = (review) => {
   return li;
 }
 
+addReview = () => {
+  event.preventDefault();
+  let restaurantID = getElementById('restaurant_id');
+  let reviewName = getElementById('review_name');
+  let reviewRating = getElementById('review_rating');
+  let reviewComment = getElementById('review_comment');
+
+  const reviewInfo = {
+    restaurantID, reviewName, reviewRating, reviewComment
+  }
+
+  //post to server code
+  //check if online, if yes => post method, if no => cache
+}
 /**
  * Add restaurant name to the breadcrumb navigation menu
  */
