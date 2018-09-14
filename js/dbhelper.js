@@ -44,7 +44,6 @@ static fetchRestaurants(callback, id) {
        console.log(“neighborhoods: “, neighborhoods);
        fetchedNeighborhoods = neighborhoods.filter((v, i) => neighborhoods.indexOf(v) == i);
        console.log(“neighborhoods filtered: “, fetchedNeighborhoods);
-
        const cuisines = restaurants.map((v, i) => restaurants[i][“cuisine_type”]);
        console.log(“cuisines: “, cuisines);
        // Remove duplicates from cuisines

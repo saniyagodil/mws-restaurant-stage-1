@@ -50,15 +50,15 @@
           <section id="reviews-container">
             <h2>New Review</h2>
             <input type="hidden" id="restaurant_id" name="restaurant_id" value="">
-            My name: <input type="text" name="review_name"><br><br>
-            My rating: <select id="rating" name="review_rating">
+            My name: <input type="text" name="review_name" id="review_name"><br><br>
+            My rating: <select id="review_rating" name="review_rating">
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
               <option value="5">5</option>
             </select><br><br>
-            My review: <textarea name="review_comment" rows="4" cols="30">
+            My review: <textarea name="review_comment" id="review_comment" rows="4" cols="30">
             </textarea><br><br>
 
             <button class="submit-button" onclick="addReview()">Submit</button>
