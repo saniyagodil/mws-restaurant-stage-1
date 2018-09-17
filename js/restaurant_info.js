@@ -150,10 +150,11 @@ createReviewHTML = (review) => {
 addReview = () => {
   debugger;
   event.preventDefault();
-  let restaurantID = getElementById('restaurant_id');
-  let reviewName = getElementById('review_name');
-  let reviewRating = getElementById('review_rating');
-  let reviewComment = getElementById('review_comment');
+  let restaurantID = getElementById('restaurant_id').value;
+  let reviewName = getElementById('review_name').value;
+  let reviewRating = getElementById('review_rating').value;
+  let reviewComment = getElementById('review_comment').value;
+  let reviewDate = Date.now();
 
   const reviewInfo = {
     restaurantID, reviewName, reviewRating, reviewComment
