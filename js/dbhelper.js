@@ -10,15 +10,20 @@ class DBHelper {
     const port = 1337;
     return `http://localhost:${port}/reviews`;
   }
-//  `http://localhost:${port}/restaurants', 1337, OR http://localhost:${port}/data/restaurants.json, 8000'
+// `http://localhost:${port}/restaurants' with port 1337, OR http://localhost:${port}/data/restaurants.json with port 8000'
 
-////////////////////
   static restarauntDB(){
-    const indexedDB = idb.open('restaurant-db', 1, function(upgradeDb ){
-      var restInfo = upgradeDb.createObjectStore("restaurants", {keyPath: 'id', autoIncrement: true});
-    });
-    return indexedDB;
+    return idb.open('db', 2, function(upgradeDb){
+        switch (upgradeDb.oldVersion) {
+            case 0:
+                upgradeDb.createObjectStore("restaurants", {keyPath: 'id', autoIncrement: true});
+            case 1:
+                const reviewStore = upgradeDb.createObjectStore("reviews", {keyPath: 'id', autoIncrement: true});
+                reviewStore.createIndex('restaurant', 'restaurant_id');
+        }
+    })
   }
+
 
   static readObjectStore(db, trans){
     var tx = db.transaction('restaurants', trans);
@@ -35,7 +40,7 @@ static fetchRestaurants(callback, id) {
    }
    fetch(requestUrl, {method: "GET"}).then(response => response.json())
    .then(restaurants => {
-     console.log("Retrieved restaurants", restaurants);
+     console.log("Retrieved restaurants successfully", restaurants);
      
      if(restaurants.length){
        callback(null, restaurants);
@@ -51,20 +56,90 @@ static fetchRestaurants(callback, id) {
        console.log(“cuisines filtered: “, fetchedCuisines);
        */
      }
-   }).catch(error => callback("Request failed. Error: ", error));
+   }).catch(error => callback("Request failed. Error: " + error));
  }
 
-// Fetches a restaurant's reviews by its ID.
-static fetchReviewById(id, callback){
-  const reviewURL = DBHelper.REVIEWS_DB_URL + "/?restaurant_id=" + id;
-  debugger;
-  fetch(reviewURL, {method: "GET"}).then(response => response.json())
-   .then(result => {
-    console.log('reviews:', result);
-    callback(null, result);
-   }).catch(error => callback(error, "Request for Reviews failed. Error"));
-}
+  static readReviewStore() {
+    return DBHelper.restarauntDB()
+    .then(db => {
+      const tx = db.transaction('reviews')
+      return tx.objectStore('reviews').getAll()
+    }).catch(error => console.log("Reading of reviews failed. Error: " + error))
+  }
 
+  static writeReviewStore(data) {
+    return DBHelper.restarauntDB()
+    .then(db => {
+      const tx = db.transaction('reviews', 'readwrite')
+      const objectStore = tx.objectStore('reviews')
+      if (Array.isArray(data)) {
+        data.forEach(function(element) {
+          objectStore.put(element)
+        })
+      } else {
+        objectStore.put(data)
+      }
+
+      return tx.complete.then(() => Promise.resolve(data));
+    }).catch(error => console.log("Writing of reviews failed. Error: " + error));
+  }
+
+  // Fetches a restaurant's reviews by its ID.
+  static fetchReviewById(restaurant_id, callback) {
+    DBHelper.readReviewStore('reviews')
+    .then(res => {
+        let results = res.filter(r => r.restaurant_id == restaurant_id)
+        if (results && results.length != 0) {
+            callback(null, results)
+        } else {
+            DBHelper.getAndCacheReviews(restaurant_id, callback)
+        }
+    }).catch(error => callback(error, "Fetch failed. Error:" + error))
+  }
+
+  static getAndCacheReviews(restaurant_id, callback) {
+    const reviewURL = DBHelper.REVIEWS_DB_URL + "?restaurant_id=" + restaurant_id;
+    fetch(reviewURL, {method: "GET"})
+    .then(response => response.json())
+    .then(reviews => {
+      console.log('reviews:', reviews);
+      callback(null, DBHelper.writeReviewStore(reviews))
+    }).catch(error => callback(error, "Request for Reviews failed. Error:" + error));
+  }
+
+
+  static addReview(review) {
+    DBHelper.writeReviewStore(review)
+    .then(() => {
+      if (navigator.onLine) {
+        DBHelper.sendReview(review)
+      } else {
+        DBHelper.sendReviewWhenOnline(review)
+      }  
+    })
+  }
+
+  static sendReview(review) {
+    let post_options = {
+      method: 'POST',
+      body: JSON.stringify(review),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    }
+    fetch(`http://localhost:1337/reviews`, post_options)
+    .then(response => {
+      // do some response validations
+    }).catch(error => console.log("Failed to post review. Error: " + error))
+  }
+
+  static sendReviewWhenOnline(review) {
+    // TODO: perhaps make this able to store multiple offline reviews???
+    localStorage.setItem('review', JSON.stringify(review));
+    window.addEventListener('online', (event) => {
+      sendReview(JSON.parse(localStorage.getItem('data')))
+    })
+  }
 // fetchReviewById = (id = self.id) => {
 //   const reviewURL = DBHelper.REVIEWS_DB_URL + "/?restaurant_id=" + id;
 //   return fetch(reviewURL, {method: "GET"}).then(response => response.json())
