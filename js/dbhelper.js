@@ -10,8 +10,9 @@ class DBHelper {
     const port = 1337;
     return `http://localhost:${port}/reviews`;
   }
-// `http://localhost:${port}/restaurants' with port 1337, OR http://localhost:${port}/data/restaurants.json with port 8000'
+//  `http://localhost:${port}/restaurants', 1337, OR http://localhost:${port}/data/restaurants.json, 8000'
 
+////////////////////
   static restarauntDB(){
     return idb.open('db', 2, function(upgradeDb){
         switch (upgradeDb.oldVersion) {
@@ -30,7 +31,7 @@ class DBHelper {
     return tx.objectStore('restaurants');
   }
 
-  
+
 static fetchRestaurants(callback, id) {
    let requestUrl;
    if(!id){
@@ -40,9 +41,10 @@ static fetchRestaurants(callback, id) {
    }
    fetch(requestUrl, {method: "GET"}).then(response => response.json())
    .then(restaurants => {
-     console.log("Retrieved restaurants successfully", restaurants);
-     
-     if(restaurants.length){
+     console.log("Retrieved restaurants", restaurants);
+
+     if(!Array.isArray(restaurants) || restaurants.length){
+       DBHelper.writeStore("restaurants", restaurants)
        callback(null, restaurants);
        /*
        const neighborhoods = restaurants.map((v, i) => restaurants[i][“neighborhood”]);
@@ -64,14 +66,14 @@ static fetchRestaurants(callback, id) {
     .then(db => {
       const tx = db.transaction('reviews')
       return tx.objectStore('reviews').getAll()
-    }).catch(error => console.log("Reading of reviews failed. Error: " + error))
+    }).catch(error => console.log("Read reviews failed: Error" + error))
   }
 
-  static writeReviewStore(data) {
+  static writeStore(store, data) {
     return DBHelper.restarauntDB()
     .then(db => {
-      const tx = db.transaction('reviews', 'readwrite')
-      const objectStore = tx.objectStore('reviews')
+      const tx = db.transaction(store, 'readwrite')
+      const objectStore = tx.objectStore(store)
       if (Array.isArray(data)) {
         data.forEach(function(element) {
           objectStore.put(element)
@@ -81,7 +83,7 @@ static fetchRestaurants(callback, id) {
       }
 
       return tx.complete.then(() => Promise.resolve(data));
-    }).catch(error => console.log("Writing of reviews failed. Error: " + error));
+    }).catch(error => console.log("Write reviews failed. Error" + error));
   }
 
   // Fetches a restaurant's reviews by its ID.
@@ -94,7 +96,7 @@ static fetchRestaurants(callback, id) {
         } else {
             DBHelper.getAndCacheReviews(restaurant_id, callback)
         }
-    }).catch(error => callback(error, "Fetch failed. Error:" + error))
+    }).catch(error => callback(error, "Fetch failed: Error" + error))
   }
 
   static getAndCacheReviews(restaurant_id, callback) {
@@ -103,19 +105,19 @@ static fetchRestaurants(callback, id) {
     .then(response => response.json())
     .then(reviews => {
       console.log('reviews:', reviews);
-      callback(null, DBHelper.writeReviewStore(reviews))
-    }).catch(error => callback(error, "Request for Reviews failed. Error:" + error));
+      callback(null, DBHelper.writeStore('reviews', reviews))
+    }).catch(error => callback(error, "Request for Reviews failed. Error" + error));
   }
 
 
   static addReview(review) {
-    DBHelper.writeReviewStore(review)
+    DBHelper.writeStore('reviews', review)
     .then(() => {
       if (navigator.onLine) {
         DBHelper.sendReview(review)
       } else {
         DBHelper.sendReviewWhenOnline(review)
-      }  
+      }
     })
   }
 
@@ -130,7 +132,7 @@ static fetchRestaurants(callback, id) {
     fetch(`http://localhost:1337/reviews`, post_options)
     .then(response => {
       // do some response validations
-    }).catch(error => console.log("Failed to post review. Error: " + error))
+    }).catch(error => console.log("Failed to post review" + error))
   }
 
   static sendReviewWhenOnline(review) {
@@ -138,6 +140,26 @@ static fetchRestaurants(callback, id) {
     localStorage.setItem('review', JSON.stringify(review));
     window.addEventListener('online', (event) => {
       sendReview(JSON.parse(localStorage.getItem('data')))
+    })
+  }
+
+  static toggleFavorite(restaurant_id, callback) {
+    DBHelper.restarauntDB()
+    .then(db => {
+        const tx = db.transaction('restaurants', 'readwrite');
+        const objectStore = tx.objectStore('restaurants');
+        objectStore.get(restaurant_id)
+        .then(restaurant => {
+            const new_favorite = !restaurant.is_favorite
+            restaurant.is_favorite = new_favorite
+            const method = "PUT"
+            objectStore.put(restaurant).then( () => {
+                let url = `http://localhost:1337/restaurants/${restaurant_id}/?is_favorite=${new_favorite}`
+                console.log("URL: " + url)
+                fetch(url, {method})
+                callback(new_favorite)
+            })
+        })
     })
   }
 // fetchReviewById = (id = self.id) => {
@@ -160,7 +182,7 @@ static fetchRestaurants(callback, id) {
   // }
 ////////////////////////////
 
-   
+
 //Fetch a restaurant by its ID.
   static fetchRestaurantById(id, callback) {
     // fetch all restaurants with proper error handling.
@@ -263,7 +285,7 @@ static fetchRestaurants(callback, id) {
     return (`./restaurant.html?id=${restaurant.id}`);
   }
 
-  
+
   //Restaurant image URL, gets image
   static imageUrlForRestaurant(restaurant) {
     // if(restaurant.photograph == undefined)
@@ -274,7 +296,7 @@ static fetchRestaurants(callback, id) {
     return (`/img/${restaurant.id}` + '-200px' + '.jpg');
   }
 
-  
+
   //Map marker for a restaurant.
   static mapMarkerForRestaurant(restaurant, map) {
     const marker = new google.maps.Marker({

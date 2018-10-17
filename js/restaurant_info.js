@@ -75,7 +75,8 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   }
   // fill reviews
   DBHelper.fetchReviewById(restaurant.id, fillReviewsHTML);
-  
+  setFavorite(restaurant.is_favorite)
+
   // DBHelper.fetchReviewById(restaurant.id).then(reviews => { console.log(reviews) });
   // DBHelper.fetchReviewById(restaurant.id).then(reviews => fillReviewsHTML(reviews));
 }
@@ -103,30 +104,45 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-fillReviewsHTML = (error, reviews = self.restaurant.reviews) => {
+fillReviewsHTML = (error, review_data = self.restaurant.reviews) => {
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h2');
   title.innerHTML = 'Reviews';
   container.appendChild(title);
-
-  if (!reviews) {
-    const noReviews = document.createElement('p');
-    noReviews.innerHTML = 'No reviews yet!';
-    container.appendChild(noReviews);
-    return;
+  // TODO: pull this out to a function to remove duplicate code
+  if (Array.isArray(review_data)) {
+    if (!review_data) {
+      const noReviews = document.createElement('p');
+      noReviews.innerHTML = 'No reviews yet!';
+      container.appendChild(noReviews);
+      return;
+    }
+    const ul = document.getElementById('reviews-list');
+    review_data.forEach(review =>{
+      ul.appendChild(createReviewHTML(review))
+    })
+    container.appendChild(ul);
+  } else {
+      review_data.then(reviews => {
+        if (!reviews) {
+          const noReviews = document.createElement('p');
+          noReviews.innerHTML = 'No reviews yet!';
+          container.appendChild(noReviews);
+          return;
+        }
+        const ul = document.getElementById('reviews-list');
+        reviews.forEach(review =>{
+          ul.appendChild(createReviewHTML(review))
+        })
+        container.appendChild(ul);
+      }).catch(error => console.log("fillReviewsHTML Error" + error));
   }
-  const ul = document.getElementById('reviews-list');
-  reviews.forEach(review => {
-    ul.appendChild(createReviewHTML(review));
-  });
-  container.appendChild(ul);
 }
 
 /**
  * Create review HTML and add it to the webpage.
  */
 createReviewHTML = (review) => {
-  debugger;
   const li = document.createElement('li');
   const name = document.createElement('p');
   name.innerHTML = review.name;
@@ -148,21 +164,38 @@ createReviewHTML = (review) => {
 }
 
 addReview = () => {
-  debugger;
-  event.preventDefault();
-  let restaurantID = getElementById('restaurant_id').value;
-  let reviewName = getElementById('review_name').value;
-  let reviewRating = getElementById('review_rating').value;
-  let reviewComment = getElementById('review_comment').value;
-  let reviewDate = Date.now();
-
-  const reviewInfo = {
-    restaurantID, reviewName, reviewRating, reviewComment
+  const review = {
+    name: document.getElementById('review_name').value,
+    rating: parseInt(document.getElementById('review_rating').value),
+    restaurant_id: parseInt(getParameterByName('id')),
+    comments: document.getElementById('review_comment').value,
+    //date: Date.now(),
   }
-
-  //post to server code
-  //check if online, if yes => post method, if no => cache
+  DBHelper.addReview(review)
+  //post to server code, check if online, if yes => post method, if no => cache
 }
+
+toggleFavorite = () => {
+    restaurant_id = parseInt(getParameterByName('id'))
+    DBHelper.toggleFavorite(restaurant_id, setFavorite)
+}
+
+setFavorite = (is_favorite) => {
+    let button = document.getElementById('favorite_button')
+    let image = ""
+    if (is_favorite) {
+        image = "<img id=\"button_img\" src=\"/img/red-heart.svg\"/>"
+    } else {
+        image = "<img id=\"button_img\" src=\"/img/black-heart.svg\"/>"
+    }
+    button.innerHTML = image;
+    button.style.height = '50px'
+    button.style.width= '50px'
+    let img = document.getElementById('button_img')
+    img.style.height = '50px'
+    img.style.width= '50px'
+}
+
 /**
  * Add restaurant name to the breadcrumb navigation menu
  */
@@ -188,3 +221,6 @@ getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+
+//testing testing
