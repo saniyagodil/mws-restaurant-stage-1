@@ -44,7 +44,7 @@ self.addEventListener('install', function(event){
 
 
 self.addEventListener('fetch', function(event) {
-  if (event.request.cache === 'only-if-cached' && event.request.mode !== 'same-origin')
+  if (event.request.cache === 'only-if-cached' && event.request.mode !== 'same-origin' && event.request.method !== 'POST')
     return
       event.respondWith(
         caches.open('restaurant-app').then(function(cache) {
