@@ -118,7 +118,7 @@ static fetchRestaurants(callback, id) {
       } else {
         DBHelper.sendReviewWhenOnline(review)
       }
-    })
+    }).then(() => window.location = "http://localhost:8000/restaurant.html?id=" + getParameterByName('id'))
   }
 
   static sendReview(review) {
