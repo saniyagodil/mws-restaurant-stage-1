@@ -44,16 +44,21 @@ self.addEventListener('install', function(event){
 
 
 self.addEventListener('fetch', function(event) {
-  if (event.request.cache === 'only-if-cached' && event.request.mode !== 'same-origin' && event.request.method !== 'POST')
-    return
-      event.respondWith(
-        caches.open('restaurant-app').then(function(cache) {
-          return cache.match(event.request).then(function (response) {
-            return response || fetch(event.request).then(function(response) {
-              cache.put(event.request, response.clone());
-              return response;
-            });
-          });
-        })
-      );
+  if (event.request.cache === 'only-if-cached' && event.request.mode !== 'same-origin'){
+    if (event.request.method == "GET") {
+        return
+          event.respondWith(
+            caches.open('restaurant-app').then(function(cache) {
+              return cache.match(event.request).then(function (response) {
+                return response || fetch(event.request).then(function(response) {
+                  cache.put(event.request, response.clone());
+                  return response;
+                });
+              });
+            })
+          );
+    } else {
+        return fetch(event.request).then(function(response) return response)
+    }
+  }
 });

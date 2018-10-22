@@ -75,7 +75,9 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   }
   // fill reviews
   DBHelper.fetchReviewById(restaurant.id, fillReviewsHTML);
-  setFavorite(restaurant.is_favorite)
+  const isString = (typeof restaurant.is_favorite === 'string' || restaurant.is_favorite instanceof String);
+  const shouldBeFavorite = (isString && restaurant.is_favorite == "true") || (!isString && restaurant.is_favorite)
+  setFavorite(shouldBeFavorite)
 
   // DBHelper.fetchReviewById(restaurant.id).then(reviews => { console.log(reviews) });
   // DBHelper.fetchReviewById(restaurant.id).then(reviews => fillReviewsHTML(reviews));

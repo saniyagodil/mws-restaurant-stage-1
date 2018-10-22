@@ -143,6 +143,13 @@ static fetchRestaurants(callback, id) {
     })
   }
 
+  static formatFavorite(shouldBeFavorite, isString) {
+    if (isString) {
+        return shouldBeFavorite ? "true" : "false"
+    }
+    return shouldBeFavorite ? true : false
+  }
+
   static toggleFavorite(restaurant_id, callback) {
     DBHelper.restarauntDB()
     .then(db => {
@@ -150,14 +157,16 @@ static fetchRestaurants(callback, id) {
         const objectStore = tx.objectStore('restaurants');
         objectStore.get(restaurant_id)
         .then(restaurant => {
-            const new_favorite = !restaurant.is_favorite
-            restaurant.is_favorite = new_favorite
+            const isString = (typeof restaurant.is_favorite === 'string' || restaurant.is_favorite instanceof String);
+            const shouldBeFavorite = !((isString && restaurant.is_favorite == "true") || (!isString && restaurant.is_favorite))
+            console.log(isString + " + " + shouldBeFavorite + " + " + restaurant.is_favorite)
+            restaurant.is_favorite = DBHelper.formatFavorite(shouldBeFavorite, isString)
             const method = "PUT"
             objectStore.put(restaurant).then( () => {
-                let url = `http://localhost:1337/restaurants/${restaurant_id}/?is_favorite=${new_favorite}`
+                let url = `http://localhost:1337/restaurants/${restaurant_id}/?is_favorite=${shouldBeFavorite}`
                 console.log("URL: " + url)
                 fetch(url, {method})
-                callback(new_favorite)
+                callback(shouldBeFavorite)
             })
         })
     })
