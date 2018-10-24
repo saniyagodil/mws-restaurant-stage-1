@@ -111,14 +111,13 @@ static fetchRestaurants(callback, id) {
 
 
   static addReview(review) {
-    DBHelper.writeStore('reviews', review)
-    .then(() => {
-      if (navigator.onLine) {
-        DBHelper.sendReview(review)
-      } else {
-        DBHelper.sendReviewWhenOnline(review)
-      }
-    }).then(() => window.location = "http://localhost:8000/restaurant.html?id=" + getParameterByName('id'))
+    DBHelper.writeStore('reviews', [review])
+    if (navigator.onLine) {
+      DBHelper.sendReview(review)
+      .then(() => window.location = "http://localhost:8000/restaurant.html?id=" + getParameterByName('id'))
+    } else {
+      DBHelper.sendReviewWhenOnline(review)
+    }
   }
 
   static sendReview(review) {
