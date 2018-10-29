@@ -112,9 +112,10 @@ static fetchRestaurants(callback, id) {
 
   static addReview(review) {
     DBHelper.writeStore('reviews', [review])
+    event.preventDefault();
     if (navigator.onLine) {
       DBHelper.sendReview(review)
-      .then(() => window.location = "http://localhost:8000/restaurant.html?id=" + getParameterByName('id'))
+      // .then(() => window.location = "http://localhost:8000/restaurant.html?id=" + getParameterByName('id'))
     } else {
       DBHelper.sendReviewWhenOnline(review)
     }
@@ -130,7 +131,7 @@ static fetchRestaurants(callback, id) {
     }
     fetch(`http://localhost:1337/reviews`, post_options)
     .then(response => {
-      console.log("Posting review...")
+      // console.log("Posting review...")
       // do some response validations
     }).catch(error => console.log("Failed to post review" + error))
   }
