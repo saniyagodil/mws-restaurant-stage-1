@@ -58,7 +58,7 @@ self.addEventListener('fetch', function(event) {
             })
           );
     } else {
-        return fetch(event.request).then(function(response) return response)
+        return fetch(event.request).then(function(response) {return response})
     }
   }
 });
