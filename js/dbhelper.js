@@ -130,6 +130,7 @@ static fetchRestaurants(callback, id) {
     }
     fetch(`http://localhost:1337/reviews`, post_options)
     .then(response => {
+      console.log("Posting review...")
       // do some response validations
     }).catch(error => console.log("Failed to post review" + error))
   }
